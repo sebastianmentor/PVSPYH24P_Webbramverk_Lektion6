@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h3>Users Table</h3>
+<table>
+    <thead>
+        {{page}} of total: {{pages}}
+        <form>
+            <input type="text" name="q" placeholder="Search users...." value="{{q}}">
+            <button type="submit">Search</button> 
+            
+            <label for="user_type">Choose type</label>
+            <select name="user_type" id="user_type">
+                <option value="0" {% if user_type == 0 %}selected{% endif %} >All</option>
+                {% for t in user_type_list%}
+                <option value="{{t.value}}" {% if user_type == t.value %}selected{% endif %} >{{t.name}}</option>
+                {% endfor%}
+            </select>
+        </form>
+
+        <tr>
+            <th>ID 
+                <a href="{{url_for('users', sort_column='id', sort_order='asc')}}"><i class='bx bxs-up-arrow'></i></a> 
+                <a href="{{url_for('users', sort_column='id', sort_order='desc')}}"><i class='bx bxs-down-arrow'></i></a> 
+            </th>
+            <th>Name 
+                <a href="{{url_for('users', sort_column='name', sort_order='asc')}}"><i class='bx bxs-up-arrow'></i></a> 
+                <a href="{{url_for('users', sort_column='name', sort_order='desc')}}"><i class='bx bxs-down-arrow'></i></a> 
+            </th>
+            <th>Address 
+                <a href="{{url_for('users', sort_column='address', sort_order='asc')}}"><i class='bx bxs-up-arrow'></i></a> 
+                <a href="{{url_for('users', sort_column='address', sort_order='desc')}}"><i class='bx bxs-down-arrow'></i></a> 
+            </th>
+            <th>Email 
+                <a href="{{url_for('users', sort_column='email', sort_order='asc')}}"><i class='bx bxs-up-arrow'></i></a> 
+                <a href="{{url_for('users', sort_column='email', sort_order='desc')}}"><i class='bx bxs-down-arrow'></i></a> 
+            </th>
+            <th>Type 
+                <a href="{{url_for('users', sort_column='type', sort_order='asc')}}"><i class='bx bxs-up-arrow'></i></a> 
+                <a href="{{url_for('users', sort_column='type', sort_order='desc')}}"><i class='bx bxs-down-arrow'></i></a> 
+            </th>
+            <th>
+                Go To
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in all_users %}
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.address}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.user_type.name}}</td>
+                <td><a href="{{url_for('user', user_id=user.id)}}" class="go-user"><i class='bx bx-user' ></i></a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                {% if has_prev %}    
+                <a href="{{url_for('users', sort_column=sort_column, sort_order=sort_order, q=q, page=page-1)}}"><i class='bx bxs-left-arrow' ></i></a>
+                {% else %}
+                <a href="{{url_for('users', sort_column=sort_column, sort_order=sort_order, q=q, page=page-1)}}" aria-disabled="true"><i class='bx bxs-left-arrow' ></i></a>
+                {% endif%}
+
+                {% for sida in iter_pages() %}
+                    {% if sida %}
+                        {% if sida != page %}
+                        <a href="{{url_for('users', sort_column=sort_column, sort_order=sort_order, q=q, page=sida)}}">{{ sida }}</a>
+                        {% else %}
+                        <strong>{{ sida }}</strong>
+                        {% endif %}
+                    {% else %}
+                        <span class=ellipsis>…</span>
+                    {% endif %}
+                {% endfor %}
+                
+
+                {% if has_next %}    
+                <a href="{{url_for('users', sort_column=sort_column, sort_order=sort_order, q=q, page=page+1)}}"><i class='bx bxs-right-arrow' ></i></a>
+                {% else %}
+                <a href="{{url_for('users', sort_column=sort_column, sort_order=sort_order, q=q, page=page+1)}}" aria-disabled="true"><i class='bx bxs-right-arrow' ></i></a>
+                {% endif%}
+            </td>
+        </tr>
+       
+    </tfoot>
+</table>
+{% endblock %}

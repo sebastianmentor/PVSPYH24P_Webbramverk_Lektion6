@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    {% if a_user %}
+    <h2>User Page</h2>
+    <p>{{a_user.id}}</p>
+    <p>{{a_user.name}}</p>
+    <p>{{a_user.username}}</p>
+    <p>{{a_user.address}}</p>
+    <p>{{a_user.registrated_at}}</p>
+    <p>{{a_user.city}}</p>
+    {% else %}
+    <h2>No user found!</h2>
+    {% endif %}
+{% endblock %}
