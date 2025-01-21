@@ -4,13 +4,65 @@
 
 {% block content %}
     {% if a_user %}
-    <h2>User Page</h2>
-    <p>{{a_user.id}}</p>
-    <p>{{a_user.name}}</p>
-    <p>{{a_user.username}}</p>
-    <p>{{a_user.address}}</p>
-    <p>{{a_user.registrated_at}}</p>
-    <p>{{a_user.city}}</p>
+    <div class="user-page">
+        <!-- User Profile Image -->
+        <img src="https://robohash.org/{{a_user.username}}?set=set4" alt="User Profile Image" class="profile-image">
+
+        <!-- User Info -->
+        <div class="user-info">
+            <h2>{{a_user.name}}</h2>
+            <p>{{a_user.username}}</p>
+            <p>Registered: {{a_user.registrated_at}}</p>
+        </div>
+
+        <!-- User Details Table -->
+        <table class="user-details">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>{{a_user.id}}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{a_user.name}}</td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td>{{a_user.username}}</td>
+                </tr>
+                <tr>
+                    <td>Registered At</td>
+                    <td>{{a_user.registrated_at}}</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>{{a_user.address}}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{a_user.email}}</td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td>{{a_user.city}}</td>
+                </tr>
+                <tr>
+                    <td>Birth Date</td>
+                    <td>{{a_user.birth_date}}</td>
+                </tr>
+                <tr>
+                    <td>User Type</td>
+                    <td>{{a_user.user_type.name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     {% else %}
     <h2>No user found!</h2>
     {% endif %}
